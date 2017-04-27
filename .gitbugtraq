@@ -1,0 +1,5 @@
+[bugtraq]
+	url = https://github.com/mlippert/srt-shift/issues/%BUGID%
+	logfilterregex = "[Ii]ssues?:?((?:\\s*(?:,|and)?\\s*#\\d+)+)"
+	loglinkregex = "(#\\d+)"
+	logregex = "(\\d+)"
