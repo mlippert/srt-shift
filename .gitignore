@@ -1,7 +1,9 @@
 # Files we don't want in *this* repository #
 ############################################
-# Windows shortcut files
-*.lnk
+
+# created distribution files (e.g. compiled typescript) #
+#########################################################
+dist/
 
 # Compiled source #
 ###################
@@ -53,6 +55,10 @@ node_modules/
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Windows shortcut files #
+##########################
+*.lnk
 
 # IDE #
 ##########

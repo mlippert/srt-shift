@@ -1,0 +1,30 @@
+{
+  "compilerOptions":
+  {
+    "target": "es2016",
+    "module": "commonjs",
+    "lib": [ "ES2015", "ES2016", "DOM", "DOM.Iterable", "ScriptHost" ],
+    "outDir": "dist",
+    "baseUrl": "./src",
+    "noEmitOnError": false,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": true,
+    "strictNullChecks": false,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "sourceMap": true
+  },
+  "include":
+  [
+    "src/**/*.ts"
+  ],
+  "exclude":
+  [
+    "node_modules",
+    "**/*.spec.ts"
+  ]
+}
