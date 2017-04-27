@@ -1,0 +1,32 @@
+{
+  "name": "srt-shift",
+  "version": "0.1.0",
+  "description": "Time shift the subtitles in an SRT file",
+  "author": {
+    "name": "Michael Jay Lippert",
+    "email": "mlippert255@gmail.com"
+  },
+  "license": "MIT",
+  "keywords": [
+    "srt",
+    "subtitle"
+  ],
+  "repository": "https://github.com/mlippert/srt-shift",
+  "readme": "README.md",
+  "main": "dist/main.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.13",
+    "babel-cli": "^6.24.1",
+    "babel-preset-env": "^1.4.0",
+    "electron": "~1.6.5",
+    "typescript": "^2.2.2"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0",
+    "timespan": "^2.3.0"
+  }
+}
