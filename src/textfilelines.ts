@@ -138,6 +138,7 @@ export class LineTransform extends Transform
                encoding: string,
                callback: (err?: Error | null, data?: any) => void): void
     {
+        // We only support already decoded string chunks.
         if (encoding === "buffer")
         {
             return callback(new Error("Buffer chunks not supported"));
@@ -160,17 +161,14 @@ export class LineTransform extends Transform
         let nextLine = 0;
         this._continueTransform = () =>
             {
+                let backpressure = false;
                 while (nextLine < lines.length)
                 {
-                    if (!this.push(lines[nextLine++] + "\n"))
-                    {
-                        if (nextLine < lines.length)
-                        {
-                            return;
-                        }
+                    // we've got more to push, but we got backpressure so it has to wait.
+                    if (backpressure)
+                        return;
 
-                        break;
-                    }
+                    backpressure = !this.push(lines[nextLine++] + "\n");
                 }
 
                 console.error(`_continueTransform ${this._debugTransformCallCount} finished\n`);
