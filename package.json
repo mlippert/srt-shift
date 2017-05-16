@@ -18,6 +18,9 @@
     "build": "tsc",
     "start": "electron ."
   },
+  "engines": {
+    "node" : ">=6.10.3"
+  },
   "devDependencies": {
     "@types/node": "^7.0.18",
     "babel-cli": "^6.24.1",
