@@ -19,3 +19,30 @@ The best tool for the job is probably a simple [awk][] script which I may eventu
 [kmttg]: <https://sourceforge.net/p/kmttg/wiki/Home/>
 [electron]: <https://electron.atom.io/>
 [awk]: <https://www.gnu.org/software/gawk/manual/gawk.html>
+
+## Development
+
+### Node version
+
+See the `package.json` for minimum required node version (currently v6) as well as other
+dependency versions.
+
+The source code is [typescript][] which is compiled into the `dist` subdirectory.
+
+The entry point is `src/main.ts` => `dist/main.js`.
+
+Use npm or yarn to install the package dependencies then build the sources into the `dist`
+subdirectory.
+
+- `npm install` or `yarn install`
+- `npm run build` or `yarn run build`
+
+Run the compiled code:
+
+- `node dist/main.js`
+
+[typescript]: <https://www.typescriptlang.org/>
+
+### awk version
+
+To be implemented.
