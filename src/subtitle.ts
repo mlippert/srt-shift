@@ -84,11 +84,66 @@ export default class Subtitle
     {
         let srtLines: string[] =
             [
-                `${toSrtTimeString(this.startTime)} --> ${toSrtTimeString(this.endTime)}`, // 00:00:05,806 --> 00:00:06,905
+                // 00:00:05,806 --> 00:00:06,905
+                `${Subtitle.toSrtTimeString(this.startTime)} --> ${Subtitle.toSrtTimeString(this.endTime)}`,
                 ...this.text
             ];
 
         return srtLines;
+    }
+
+    /* **************************************************************************
+     * toSrtTimeString - static                                            */ /**
+     *
+     * Get the SRT format representation of a given TimeSpan.
+     *
+     * @param t
+     *      The TimeSpan whose SRT representation is desired
+     *
+     * @returns SRT formatted offset time:
+     *      * hh:mm:ss,fff where each value is zero left padded.
+     *          * hh - hours; mm - minutes; ss - seconds; fff - milliseconds
+     */
+    static toSrtTimeString(t: TimeSpan): string
+    {
+        let h = (t.hours < 10 ? "0" : "") + t.hours.toFixed();
+        let m = (t.minutes < 10 ? "0" : "") + t.minutes.toFixed();
+        let s = (t.seconds < 10 ? "0" : "") + t.seconds.toFixed();
+        let ms = (t.milliseconds < 100 ? "0" : "") + (t.milliseconds < 10 ? "0" : "") + t.milliseconds.toFixed();
+
+        return `${h}:${m}:${s},${ms}`;
+    }
+
+    /* **************************************************************************
+     * parseSrtDisplayTimes - static                                       */ /**
+     *
+     * Parse an SRT subtitle display time line (of the format
+     * hh:mm:ss,fff --> hh:mm:ss,fff) into startTime and endTime TimeSpans.
+     *
+     * @param srtDisplayTime
+     *      SRT subtitle display time line
+     *
+     * @returns Object w/ startTime and endTime properties matching the values
+     *      in the given string.
+     *
+     * @throws {Error} If the given srtDisplayTime doesn't contain appropriately
+     *      formatted start and end times.
+     */
+    static parseSrtDisplayTimes(srtDisplayTime: string): { startTime: TimeSpan, endTime: TimeSpan }
+    {
+        let srtTimesRe = /(\d\d):(\d\d):(\d\d),(\d\d\d) --> (\d\d):(\d\d):(\d\d),(\d\d\d)/;
+
+        let reResult = srtTimesRe.exec(srtDisplayTime);
+
+        if (reResult === null)
+            throw new Error(`Invalid SRT Display Time: "${srtDisplayTime}"`);
+
+        let [ , sHr, sMin, sSec, sMs, eHr, eMin, eSec, eMs ]: string[] = reResult;
+
+        let startTime = new TimeSpan(parseInt(sMs, 10), parseInt(sSec, 10), parseInt(sMin, 10), parseInt(sHr, 10));
+        let endTime = new TimeSpan(parseInt(eMs, 10), parseInt(eSec, 10), parseInt(eMin, 10), parseInt(eHr, 10));
+
+        return { startTime, endTime };
     }
 }
 
@@ -119,24 +174,3 @@ interface Subtitle_Config
 }
 
 
-/* ******************************************************************************
- * toSrtTimeString                                                         */ /**
- *
- * Get the SRT format representation of a given TimeSpan.
- *
- * @param t
- *      The TimeSpan whose SRT representation is desired
- *
- * @returns SRT formatted offset time:
- *      * hh:mm:ss,fff where each value is zero left padded.
- *          * hh - hours; mm - minutes; ss - seconds; fff - milliseconds
- */
-function toSrtTimeString(t: TimeSpan): string
-{
-    let h = (t.hours < 10 ? "0" : "") + t.hours.toFixed();
-    let m = (t.minutes < 10 ? "0" : "") + t.minutes.toFixed();
-    let s = (t.seconds < 10 ? "0" : "") + t.seconds.toFixed();
-    let ms = (t.milliseconds < 100 ? "0" : "") + (t.milliseconds < 10 ? "0" : "") + t.milliseconds.toFixed();
-
-    return `${h}:${m}:${s},${ms}`;
-}
