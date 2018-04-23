@@ -1,22 +1,27 @@
 {
   "compilerOptions":
   {
-    "target": "es2016",
+    "target": "es2017",
     "module": "commonjs",
-    "lib": [ "ES2015", "ES2016", "DOM", "DOM.Iterable", "ScriptHost" ],
+    "lib": [ "ES2015", "ES2016", "ES2017", "DOM", "DOM.Iterable", "ScriptHost" ],
     "outDir": "dist",
     "baseUrl": "./src",
+    "sourceMap": true,
     "noEmitOnError": false,
+    "noErrorTruncation": true,
+    "pretty": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noUnusedLocals": false,
     "noUnusedParameters": true,
-    "strictNullChecks": false,
+    "alwaysStrict": true,
+    "strictFunctionTypes": false,
+    "strictPropertyInitialization": true,
+    "strictNullChecks": true,
     "removeComments": true,
-    "preserveConstEnums": true,
-    "sourceMap": true
+    "preserveConstEnums": true
   },
   "include":
   [

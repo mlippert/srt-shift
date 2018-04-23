@@ -112,7 +112,7 @@ class LineIterator implements Iterator<string>
 export class LineTransform extends Transform
 {
     private _lastLine: string;
-    private _continueTransform: () => void | null;
+    private _continueTransform: (() => void) | null;
     private _transforming: boolean;
     private _debugTransformCallCount: number;
 
@@ -157,7 +157,7 @@ export class LineTransform extends Transform
         // prepend the last (partial) line from the previous chunk transform and
         // break the new chunk into lines.
         let lines = (this._lastLine + chunk).split(/\r\n|\n/);
-        this._lastLine = lines.pop();
+        this._lastLine = lines.pop() as string;
         let nextLine = 0;
         this._continueTransform = () =>
             {
